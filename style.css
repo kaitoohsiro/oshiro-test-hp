@@ -220,24 +220,42 @@ h1, h2, h3 {
 
 .feature-item {
     text-align: center;
-    padding: 20px;
-    background: var(--light-gray);
-    border-radius: 10px;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, var(--white) 0%, var(--light-gray) 100%);
+    border-radius: 15px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.feature-icon {
-    font-size: 2.5em;
-    margin-bottom: 10px;
-    display: block;
+.feature-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
 }
 
 .feature-item h4 {
     color: var(--dark-green);
-    margin-bottom: 10px;
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.feature-item h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: var(--primary-orange);
 }
 
 .feature-item p {
-    font-size: 0.9em;
+    font-size: 0.95em;
+    line-height: 1.6;
+    color: var(--gray);
 }
 
 .about-image img {
@@ -400,17 +418,20 @@ h1, h2, h3 {
 }
 
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
     width: 100%;
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
     transition: border-color 0.3s;
+    background-color: var(--white);
 }
 
 .form-group input:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.form-group select:focus {
     outline: none;
     border-color: var(--primary-orange);
 }

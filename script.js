@@ -104,6 +104,22 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// 件名選択の処理
+const subjectSelect = document.getElementById('subjectSelect');
+const otherSubjectGroup = document.getElementById('otherSubjectGroup');
+const otherSubjectInput = document.getElementById('otherSubject');
+
+subjectSelect.addEventListener('change', (e) => {
+    if (e.target.value === 'other') {
+        otherSubjectGroup.style.display = 'block';
+        otherSubjectInput.setAttribute('required', 'required');
+    } else {
+        otherSubjectGroup.style.display = 'none';
+        otherSubjectInput.removeAttribute('required');
+        otherSubjectInput.value = '';
+    }
+});
+
 // お問い合わせフォーム（デモ用）
 const contactForm = document.getElementById('contactForm');
 
@@ -117,11 +133,18 @@ contactForm.addEventListener('submit', (e) => {
         data[key] = value;
     });
 
+    // 件名の処理
+    let subject = data.subjectSelect;
+    if (subject === 'other') {
+        subject = data.otherSubject;
+    }
+
     // デモ用のアラート表示
-    alert(`お問い合わせありがとうございます！\n\n【送信内容】\nお名前: ${data.name}\nメール: ${data.email}\n件名: ${data.subject}\nメッセージ: ${data.message}\n\n※これはデモサイトのため、実際には送信されません。`);
+    alert(`お問い合わせありがとうございます！\n\n【送信内容】\nお名前: ${data.name}\nメール: ${data.email}\n件名: ${subject}\nメッセージ: ${data.message}\n\n※これはデモサイトのため、実際には送信されません。`);
 
     // フォームをリセット
     contactForm.reset();
+    otherSubjectGroup.style.display = 'none';
 });
 
 // スクロールアニメーション

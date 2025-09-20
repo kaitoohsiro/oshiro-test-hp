@@ -49,24 +49,21 @@
             <div class="about-content">
                 <div class="about-text">
                     <h3>30年の経験と情熱</h3>
-                    <p>大城農園は、沖縄県豊見城市で3代にわたってマンゴー栽培を続けている農園です。</p>
-                    <p>農園主の大城は、県農業改良普及員として30年間勤務し、培った知識と技術を活かして、最高品質のマンゴーづくりに取り組んでいます。</p>
+                    <p>大城農園は、沖縄県豊見城市でマンゴー栽培を続けている農園です。</p>
+                    <p>農園主の大城は、県農業改良普及員として30年間勤務し、その知識と技術を活かして最高品質のマンゴーづくりに取り組んでいます。</p>
                     <p>「美味しいマンゴーを全国の皆様にお届けしたい」という想いを胸に、日々マンゴーと向き合い、一つ一つ丁寧に育てています。</p>
                     <div class="about-features">
                         <div class="feature-item">
-                            <span class="feature-icon">🌱</span>
                             <h4>有機栽培</h4>
-                            <p>化学肥料を極力使わない自然に優しい栽培方法</p>
+                            <p>化学肥料を極力使わない<br>自然に優しい栽培方法</p>
                         </div>
                         <div class="feature-item">
-                            <span class="feature-icon">🌞</span>
                             <h4>沖縄の太陽</h4>
-                            <p>たっぷりの日差しを浴びて育つ甘いマンゴー</p>
+                            <p>たっぷりの日差しを浴びて<br>育つ甘いマンゴー</p>
                         </div>
                         <div class="feature-item">
-                            <span class="feature-icon">💚</span>
                             <h4>愛情込めて</h4>
-                            <p>一つ一つ手作業で大切に育てています</p>
+                            <p>一つ一つ手作業で<br>大切に育てています</p>
                         </div>
                     </div>
                 </div>
@@ -158,8 +155,17 @@
                     <input type="email" id="email" name="email" required>
                 </div>
                 <div class="form-group">
-                    <label for="subject">件名</label>
-                    <input type="text" id="subject" name="subject" required>
+                    <label for="subjectSelect">件名</label>
+                    <select id="subjectSelect" name="subjectSelect" required>
+                        <option value="">選択してください</option>
+                        <option value="購入に関するお問い合わせ">購入に関するお問い合わせ</option>
+                        <option value="農園見学に関するお問い合わせ">農園見学に関するお問い合わせ</option>
+                        <option value="other">その他</option>
+                    </select>
+                </div>
+                <div class="form-group" id="otherSubjectGroup" style="display: none;">
+                    <label for="otherSubject">件名を入力</label>
+                    <input type="text" id="otherSubject" name="otherSubject">
                 </div>
                 <div class="form-group">
                     <label for="message">メッセージ</label>
