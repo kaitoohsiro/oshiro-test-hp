@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ダミー画像生成</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        // Canvas設定
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // 画像生成関数
+        function createImage(width, height, text, bgColor, fileName) {
+            canvas.width = width;
+            canvas.height = height;
+
+            // グラデーション背景
+            const gradient = ctx.createLinearGradient(0, 0, width, height);
+            gradient.addColorStop(0, bgColor);
+            gradient.addColorStop(1, adjustColor(bgColor, -30));
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, width, height);
+
+            // パターン描画
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+            ctx.lineWidth = 2;
+            for(let i = 0; i < width; i += 50) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i + height, height);
+                ctx.stroke();
+            }
+
+            // テキスト
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 48px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+            ctx.shadowBlur = 10;
+            ctx.fillText(text, width/2, height/2);
+
+            // サブテキスト
+            ctx.font = '24px sans-serif';
+            ctx.fillText(fileName, width/2, height/2 + 50);
+
+            // ダウンロード
+            canvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fileName;
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+        }
+
+        // 色調整関数
+        function adjustColor(color, amount) {
+            const num = parseInt(color.replace("#",""), 16);
+            const r = Math.max(0, Math.min(255, (num >> 16) + amount));
+            const g = Math.max(0, Math.min(255, ((num >> 8) & 0x00FF) + amount));
+            const b = Math.max(0, Math.min(255, (num & 0x0000FF) + amount));
+            return "#" + ((r << 16) | (g << 8) | b).toString(16).padStart(6, '0');
+        }
+
+        // 画像生成
+        const images = [
+            { width: 1200, height: 800, text: '🥭 極上マンゴー', bgColor: '#ff6b35', fileName: 'hero-mango.jpg' },
+            { width: 800, height: 600, text: '🌴 大城農園', bgColor: '#2a5434', fileName: 'farm.jpg' },
+            { width: 600, height: 600, text: '🥭 アップル', bgColor: '#ff8c5a', fileName: 'mango1.jpg' },
+            { width: 600, height: 600, text: '🥭 キーツ', bgColor: '#ffa500', fileName: 'mango2.jpg' },
+            { width: 600, height: 600, text: '🥭 金蜜', bgColor: '#ffd700', fileName: 'mango3.jpg' },
+            { width: 800, height: 600, text: '🌱 マンゴー畑', bgColor: '#3a6b3c', fileName: 'gallery1.jpg' },
+            { width: 800, height: 600, text: '📦 収穫', bgColor: '#ff7f50', fileName: 'gallery2.jpg' },
+            { width: 800, height: 600, text: '🌸 マンゴーの花', bgColor: '#ffb6c1', fileName: 'gallery3.jpg' },
+            { width: 800, height: 600, text: '✨ 完熟', bgColor: '#ff6347', fileName: 'gallery4.jpg' },
+            { width: 800, height: 600, text: '🍴 カット', bgColor: '#ffa07a', fileName: 'gallery5.jpg' },
+            { width: 800, height: 600, text: '👨‍🌾 農園作業', bgColor: '#4a7c4e', fileName: 'gallery6.jpg' }
+        ];
+
+        let index = 0;
+        const generateNext = () => {
+            if (index < images.length) {
+                const img = images[index];
+                setTimeout(() => {
+                    createImage(img.width, img.height, img.text, img.bgColor, img.fileName);
+                    index++;
+                    generateNext();
+                }, 500);
+            }
+        };
+
+        // 開始
+        generateNext();
+    </script>
+</body>
+</html>
